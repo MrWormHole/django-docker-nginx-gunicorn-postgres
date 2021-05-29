@@ -10,11 +10,13 @@ services:
       - static:/var/www/myproject/resouces/static
       - media:/var/www/myproject/resources/media
     depends_on:
-      - gunicorn
+      - web
     networks: 
         -django_network
 
   web:
+    restart: always
+    container_name: web
     build:
       context: .
       args:
@@ -52,4 +54,3 @@ volumes:
 
 networks:
     django_network:
-        driver: bridge
