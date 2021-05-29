@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx_conf:/etc/nginx/conf.d
+      - static:/var/www/myproject/resouces/static
+      - media:/var/www/myproject/resources/media
+    depends_on:
+      - gunicorn
+    networks: 
+        -django_network
+
+  web:
+    build:
+      context: .
+      args:
+        PROJECT_NAME: "TYPE_PROJECT_NAME_HERE" # set this
+    depends_on:
+      - db
+    volumes:
+      - static:/var/www/myproject/resouces/static
+      - media:/var/www/myproject/resouces/static
+    expose:
+      - "8000"
+    environment:
+      DUMMY: "DUMMY"
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: "myproject_production" # set this
+      POSTGRES_USER: "myproject" # set this
+      POSTGRES_PASSWORD: "hellodarknessmyoldfriend" # set this
+    ports:
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_backup:/backups
+    networks:
+      - django_network
+
+volumes:
+  postgres_data:
+  postgres_data_backup:
+  static:
+  media:
+
+networks:
+    django_network:
+        driver: bridge
