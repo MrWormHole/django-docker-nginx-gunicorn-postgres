@@ -6,7 +6,7 @@ ARG SUBPROJECT_NAME=subproject
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir /var/www/${myproject}
+RUN mkdir -p /var/www/${myproject}
 WORKDIR /var/www/${myproject}
 
 COPY . .
