@@ -12,7 +12,7 @@ services:
     depends_on:
       - web
     networks: 
-        -django_network
+      - django_network
 
   web:
     restart: always
@@ -25,7 +25,7 @@ services:
       - db
     volumes:
       - static:/var/www/myproject/resouces/static
-      - media:/var/www/myproject/resouces/static
+      - media:/var/www/myproject/resouces/media
     expose:
       - "8000"
     environment:
