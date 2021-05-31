@@ -21,6 +21,7 @@ services:
       context: .
       args:
         PROJECT_NAME: "TYPE_PROJECT_NAME_HERE" # set this
+        SUBPROJECT_NAME: "TYPE_SUBPROJECT_NAME_HERE" # set this
     depends_on:
       - db
     volumes:
